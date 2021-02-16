@@ -1,0 +1,22 @@
+#registration {
+  padding-top: 10%;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  margin: 10% auto;
+}
+
+
+#buttonInput {
+  display: inline-block;
+  vertical-align: top;
+  border: none;
+  margin-right: 15px;
+}
+
+#buttonCheckIn {
+  display: inline-block;
+  vertical-align: top;
+  border: none;
+  margin-left: 15px;
+}
