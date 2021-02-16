@@ -1,7 +1,7 @@
 {
   "name": "crm-for-clinic",
   "version": "1.0.0",
-  "description": "",
+  "description": "[![Actions Status](https://github.com/Polt0s/crm-for-clinic/workflows/main-CI/badge.svg)](https://github.com/Polt0s/crm-for-clinic/actions)",
   "main": "src/index.js",
   "scripts": {
     "build": "webpack",
