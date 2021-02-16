@@ -1,13 +1,13 @@
 # Name of workflow
-name: main-CI
+name: master-CI
 
 on:
   push: 
     branches: 
-      - main
+      - master
   pull_request:
     branches: 
-      - main
+      - master
 
 jobs:
   build:
