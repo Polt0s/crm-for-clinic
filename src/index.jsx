@@ -4,7 +4,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import App from './components/App.jsx';
+import AppRegistration from './components/registrationForm/AppRegistration.jsx';
 import reducers from './reducers/index.js';
 
 const store = createStore(
@@ -13,7 +13,7 @@ const store = createStore(
 
 render(
   <Provider store={store}>
-    <App />
+    <AppRegistration />
   </Provider>,
   document.getElementById('container'),
 );

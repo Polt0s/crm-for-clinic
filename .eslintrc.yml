@@ -4,6 +4,7 @@ plugins:
 extends:
   - 'airbnb-base'
   - 'plugin:jest/recommended'
+  - 'react'
 
 env:
   node: true

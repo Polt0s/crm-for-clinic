@@ -51,7 +51,7 @@ module.exports = {
       },
       {
         test: /\.(jpg|jpeg|png|svg)(\?[\s\S]+)?$/,
-        use: 'file-loader',
+        use: ['@svgr/webpack', 'file-loader'],
       },
       {
         test: /\.jsx$/,

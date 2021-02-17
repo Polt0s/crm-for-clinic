@@ -1,16 +1,16 @@
 import React from 'react';
-import '../style/app.css';
+import './app.css';
 import { connect } from 'react-redux';
-import { filling, openRegistrationForm, openInputForm } from '../actions/index.js';
-import RegistationForm from './Registration.jsx';
-import InputForm from './Input.jsx';
+import { filling, openRegistrationForm, openInputForm } from '../../actions/index.js';
+import RegistationForm from './RegistrationForm.jsx';
+import InputForm from './InputForm.jsx';
 
 const mapStateToProps = ({ switching }) => {
   const props = { switching };
   return props;
 };
 
-const App = ({ dispatch, switching }) => {
+const AppRegistration = ({ dispatch, switching }) => {
 
   const handleClickCheckInForm = (event) => {
     event.preventDefault();
@@ -60,4 +60,4 @@ const App = ({ dispatch, switching }) => {
   }
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(AppRegistration);
