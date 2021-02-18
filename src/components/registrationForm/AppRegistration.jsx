@@ -11,7 +11,6 @@ const mapStateToProps = ({ switching }) => {
 };
 
 const AppRegistration = ({ dispatch, switching }) => {
-
   const handleClickCheckInForm = (event) => {
     event.preventDefault();
     dispatch(openRegistrationForm());
@@ -27,26 +26,20 @@ const AppRegistration = ({ dispatch, switching }) => {
     dispatch(filling());
   };
 
-  const renderFormInput = () => {
-    return (
-      <InputForm backToForm={handleBackToForm} />
-    );
-  }
+  const renderFormInput = () => (
+    <InputForm backToForm={handleBackToForm} />
+  );
 
-  const renderFormCheckIn = () => {
-    return (
-      <RegistationForm backToForm={handleBackToForm} />
-    );
-  }
+  const renderFormCheckIn = () => (
+    <RegistationForm backToForm={handleBackToForm} />
+  );
 
-  const renderButton = () => {
-    return (
-      <div id="registration" className="container-fluid d-flex justify-content-center">
-        <button type="button" className="btn btn-info btn-lg" id="buttonInput" onClick={handleClickInputForm}>Вход</button>
-        <button type="button" className="btn btn-info btn-lg" id="buttonCheckIn" onClick={handleClickCheckInForm}>Регистрация</button>
-      </div>
-    );
-  }
+  const renderButton = () => (
+    <div id="registration" className="container-fluid d-flex justify-content-center">
+      <button type="button" className="btn btn-info btn-lg" id="buttonInput" onClick={handleClickInputForm}>Вход</button>
+      <button type="button" className="btn btn-info btn-lg" id="buttonCheckIn" onClick={handleClickCheckInForm}>Регистрация</button>
+    </div>
+  );
 
   switch (switching) {
     case 'filling':
@@ -58,6 +51,6 @@ const AppRegistration = ({ dispatch, switching }) => {
     default:
       throw new Error(`'${switching}' - unknown state`);
   }
-}
+};
 
 export default connect(mapStateToProps)(AppRegistration);

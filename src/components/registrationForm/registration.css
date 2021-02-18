@@ -1,7 +1,7 @@
 #formCheckIn {
   display: inline-block;
-  width: 400px;
-  margin: 8% auto;
+  width: 370px;
+  margin: 0.2% auto;
   padding: 20px 20px;
   text-align: left;
   border: 3px solid #ae63e4;
@@ -13,9 +13,8 @@
   margin: 10% auto;
   padding: 20px 20px;
   text-align: left;
-  border: 3px solid #ae63e4
+  border: 3px solid #ae63e4;
 }
-
 
 #buttonBack {
   border: none;
