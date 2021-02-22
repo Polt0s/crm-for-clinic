@@ -1,7 +1,7 @@
 #formCheckIn {
   display: inline-block;
-  width: 400px;
-  margin: 8% auto;
+  width: 370px;
+  margin: 0.2% auto;
   padding: 20px 20px;
   text-align: left;
   border: 3px solid #ae63e4;
@@ -13,9 +13,17 @@
   margin: 10% auto;
   padding: 20px 20px;
   text-align: left;
-  border: 3px solid #ae63e4
+  border: 3px solid #ae63e4;
 }
 
+#formСonfirmation {
+  display: inline-block;
+  width: 370px;
+  margin: 13% auto;
+  padding: 20px 20px;
+  text-align: left;
+  border: 3px solid #ae63e4;
+}
 
 #buttonBack {
   border: none;
@@ -33,4 +41,9 @@
   border: none;
   margin-left: 10px;
   display: inline-block;
+}
+
+#textConfirmation {
+  text-align: center;
+  background-color: rgb(247, 216, 158);
 }

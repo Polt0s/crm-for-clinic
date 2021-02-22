@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './app.css';
 import { connect } from 'react-redux';
 import { filling, openRegistrationForm, openInputForm } from '../../actions/index.js';
 import RegistationForm from './RegistrationForm.jsx';
 import InputForm from './InputForm.jsx';
+import auth from '../../actions/authentication.js';
 
-const mapStateToProps = ({ switching }) => {
-  const props = { switching };
+const mapStateToProps = ({ switching, user: { isAuth } }) => {
+  const props = { switching, isAuth };
   return props;
 };
 
-const AppRegistration = ({ dispatch, switching }) => {
+const AppRegistration = ({ dispatch, switching, isAuth }) => {
+  useEffect(() => {
+    dispatch(auth);
+  }, []);
 
   const handleClickCheckInForm = (event) => {
     event.preventDefault();
@@ -27,26 +31,25 @@ const AppRegistration = ({ dispatch, switching }) => {
     dispatch(filling());
   };
 
-  const renderFormInput = () => {
-    return (
-      <InputForm backToForm={handleBackToForm} />
-    );
-  }
+  const renderFormInput = () => (
+    <InputForm backToForm={handleBackToForm} />
+  );
 
-  const renderFormCheckIn = () => {
-    return (
-      <RegistationForm backToForm={handleBackToForm} />
-    );
-  }
+  const renderFormCheckIn = () => (
+    <RegistationForm backToForm={handleBackToForm} />
+  );
 
-  const renderButton = () => {
-    return (
-      <div id="registration" className="container-fluid d-flex justify-content-center">
-        <button type="button" className="btn btn-info btn-lg" id="buttonInput" onClick={handleClickInputForm}>Вход</button>
-        <button type="button" className="btn btn-info btn-lg" id="buttonCheckIn" onClick={handleClickCheckInForm}>Регистрация</button>
-      </div>
-    );
-  }
+  const renderButton = () => (
+    <div id="registration" className="container-fluid d-flex justify-content-center">
+      {
+        !isAuth
+        && <>
+          <button type="button" className="btn btn-info btn-lg" id="buttonInput" onClick={handleClickInputForm}>Login In</button>
+          <button type="button" className="btn btn-info btn-lg" id="buttonCheckIn" onClick={handleClickCheckInForm}>Check In</button>
+        </>
+      }
+    </div>
+  );
 
   switch (switching) {
     case 'filling':
@@ -58,6 +61,6 @@ const AppRegistration = ({ dispatch, switching }) => {
     default:
       throw new Error(`'${switching}' - unknown state`);
   }
-}
+};
 
 export default connect(mapStateToProps)(AppRegistration);
