@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
 import './registration.css';
 import InputElements from './InputElements.jsx';
+import sendingRegistrationData from '../../actions/sendingRegistration.js';
+import EmailСonfirmation from './ConfirmationOfRegistration.jsx';
 
 const RegistationForm = (props) => {
+  const [isOpen, changeOpenConfirmation] = useState('filling');
   const { backToForm } = props;
-  return (
+
+  const handleSubmit = () => {
+    changeOpenConfirmation('submitted');
+  };
+
+  const renderMenu = () => (
+    <EmailСonfirmation />
+  );
+
+  const renderRegistarionForm = () => (
     <Formik
       initialValues={{
         firstName: '',
@@ -40,62 +52,76 @@ const RegistationForm = (props) => {
         }),
       })}
       onSubmit={(values) => {
+        sendingRegistrationData(values);
+        handleSubmit();
         console.log(values);
       }}
+      validateOnMount
     >
-      <Form id="formCheckIn">
-        <div className="container-fluid">
+      {(formik) => (
+        <Form id="formCheckIn">
+          <div className="container-fluid">
 
-          <div className="form-group">
-            <InputElements
-              label="LastName"
-              name="lastName"
-              type="text"
-            />
-          </div>
-          <div className="form-group">
-            <InputElements
-              label="FirstName"
-              name="firstName"
-              type="text"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="specialty">Speciality</label>
-            <Field name="specialty" as="select" className="form-control">
-              <option value=""></option>
-              <option value="DOCTOR">DOCTOR</option>
-              <option value="NURSE">NURSE</option>
-            </Field>
-          </div>
-          <div className="form-group">
-            <InputElements
-              label="Email"
-              name="email"
-              type="email"
-            />
-          </div>
-          <div className="form-group">
-            <InputElements
-              label="Password"
-              name="password"
-              type="password"
-            />
-          </div>
-          <div className="form-group">
-            <InputElements
-              label="Confirm password"
-              name="confirmPassword"
-              type="password"
-            />
-          </div>
-          <button type="button" className="btn btn-primary" id="buttonBack" onClick={backToForm}>Вернуться</button>
-          <button type="submit" className="btn btn-primary" id="buttonCheckIn">Зарегистрироваться</button>
+            <div className="form-group">
+              <InputElements
+                label="LastName"
+                name="lastName"
+                type="text"
+              />
+            </div>
+            <div className="form-group">
+              <InputElements
+                label="FirstName"
+                name="firstName"
+                type="text"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="specialty">Speciality</label>
+              <Field name="specialty" as="select" className="form-control">
+                <option value=""></option>
+                <option value="DOCTOR">DOCTOR</option>
+                <option value="NURSE">NURSE</option>
+              </Field>
+            </div>
+            <div className="form-group">
+              <InputElements
+                label="Email"
+                name="email"
+                type="email"
+              />
+            </div>
+            <div className="form-group">
+              <InputElements
+                label="Password"
+                name="password"
+                type="password"
+              />
+            </div>
+            <div className="form-group">
+              <InputElements
+                label="Confirm password"
+                name="confirmPassword"
+                type="password"
+              />
+            </div>
+            <button type="button" className="btn btn-primary" id="buttonBack" onClick={backToForm}>Back</button>
+            <button type="submit" className="btn btn-primary" id="buttonCheckIn" disabled={!formik.isValid}>Check In</button>
 
-        </div>
-      </Form>
+          </div>
+        </Form>
+      )}
     </Formik>
   );
+
+  switch (isOpen) {
+    case 'filling':
+      return renderRegistarionForm();
+    case 'submitted':
+      return renderMenu();
+    default:
+      throw new Error(`'${isOpen}' - unknown state`);
+  }
 };
 
 RegistationForm.propTypes = {

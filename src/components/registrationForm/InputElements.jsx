@@ -21,4 +21,5 @@ InputElements.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
 };
+
 export default InputElements;

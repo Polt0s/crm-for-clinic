@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -6,17 +7,29 @@ import Checkbox from '@material-ui/core/Checkbox';
 import * as yup from 'yup';
 import './registration.css';
 import InputElements from './InputElements.jsx';
+import Test from '../text.jsx';
+import sendingLoginData from '../../actions/sendingLogin.js';
 
 const InputForm = (props) => {
+  const dispatch = useDispatch();
   const [showHidePassword, changeShowHidePassword] = useState(false);
+  const [isSubmit, changeSubmit] = useState('filling');
 
   const handleShow = (e) => {
     e.preventDefault();
     changeShowHidePassword(!showHidePassword);
   };
 
+  const renderMainMenu = () => (
+    <Test />
+  );
+
+  const handleSubmit = () => {
+    changeSubmit('submitted');
+  };
+
   const { backToForm } = props;
-  return (
+  const render = () => (
     <Formik
       initialValues={{
         email: '',
@@ -29,39 +42,52 @@ const InputForm = (props) => {
         })
       }
       onSubmit={(values) => {
+        dispatch(sendingLoginData(values));
+        handleSubmit();
         console.log(values);
       }}
+      validateOnMount
     >
-      <Form id="formInput">
-        <div className="container-fluid">
+      {(formik) => (
+        <Form id="formInput">
+          <div className="container-fluid">
 
-          <div className="form-group">
-            <InputElements
-              label="Email"
-              name="email"
-              type="email"
-            />
+            <div className="form-group">
+              <InputElements
+                label="Email"
+                name="email"
+                type="email"
+              />
+            </div>
+            <div className="form-group">
+              <InputElements
+                label="Password"
+                name="password"
+                type={showHidePassword ? 'text' : 'password'}
+              />
+              <FormControlLabel
+                value="end"
+                control={<Checkbox color="primary" checked={showHidePassword} onClick={handleShow} />}
+                label="Check password"
+                labelPlacement="end"
+              />
+            </div>
+            <button type="button" className="btn btn-primary" id="buttonBack" onClick={backToForm}>Back</button>
+            <button type="submit" className="btn btn-primary" id="buttonInput" disabled={!formik.isValid}>Login In</button>
           </div>
-          <div className="form-group">
-            <InputElements
-              label="Password"
-              name="password"
-              id="proba"
-              type={showHidePassword ? 'text' : 'password'}
-            />
-            <FormControlLabel
-              value="end"
-              control={<Checkbox color="primary" checked={showHidePassword} onClick={handleShow} />}
-              label="Check password"
-              labelPlacement="end"
-            />
-          </div>
-          <button type="button" className="btn btn-primary" id="buttonBack" onClick={backToForm}>Вернуться</button>
-          <button type="submit" className="btn btn-primary" id="buttonInput">Войти</button>
-        </div>
-      </Form>
+        </Form>
+      )}
     </Formik >
   );
+
+  switch (isSubmit) {
+    case 'filling':
+      return render();
+    case 'submitted':
+      return renderMainMenu();
+    default:
+      throw new Error(`'${isSubmit}' - unknown state`);
+  }
 };
 
 InputForm.propTypes = {
