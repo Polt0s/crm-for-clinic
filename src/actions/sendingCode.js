@@ -1,9 +1,10 @@
 import axios from 'axios';
 
 const sendingCode = async (values) => {
+  const { code } = values;
   try {
     const response = await axios.post('http://localhost:8080/auth/confirm-code', {
-      values,
+      code,
     });
     console.log(response.data.message);
   } catch (err) {

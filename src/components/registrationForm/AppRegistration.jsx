@@ -44,8 +44,8 @@ const AppRegistration = ({ dispatch, switching, isAuth }) => {
       {
         !isAuth
         && <>
-          <button type="button" className="btn btn-info btn-lg" id="buttonInput" onClick={handleClickInputForm}>Login In</button>
-          <button type="button" className="btn btn-info btn-lg" id="buttonCheckIn" onClick={handleClickCheckInForm}>Check In</button>
+          <button type="button" className="btn btn-info btn-lg" id="buttonInput" onClick={handleClickInputForm}>Sign in</button>
+          <button type="button" className="btn btn-info btn-lg" id="buttonCheckIn" onClick={handleClickCheckInForm}>Sign up</button>
         </>
       }
     </div>

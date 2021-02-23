@@ -42,9 +42,10 @@ const InputForm = (props) => {
         })
       }
       onSubmit={(values) => {
-        dispatch(sendingLoginData(values));
+        const { email, password } = values;
+        dispatch(sendingLoginData(email, password));
         handleSubmit();
-        console.log(values);
+        // console.log();
       }}
       validateOnMount
     >
@@ -73,7 +74,7 @@ const InputForm = (props) => {
               />
             </div>
             <button type="button" className="btn btn-primary" id="buttonBack" onClick={backToForm}>Back</button>
-            <button type="submit" className="btn btn-primary" id="buttonInput" disabled={!formik.isValid}>Login In</button>
+            <button type="submit" className="btn btn-primary" id="buttonInput" disabled={!formik.isValid}>Sign in</button>
           </div>
         </Form>
       )}

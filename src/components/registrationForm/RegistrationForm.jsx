@@ -106,7 +106,7 @@ const RegistationForm = (props) => {
               />
             </div>
             <button type="button" className="btn btn-primary" id="buttonBack" onClick={backToForm}>Back</button>
-            <button type="submit" className="btn btn-primary" id="buttonCheckIn" disabled={!formik.isValid}>Check In</button>
+            <button type="submit" className="btn btn-primary" id="buttonCheckIn" disabled={!formik.isValid}>Sign up</button>
 
           </div>
         </Form>
