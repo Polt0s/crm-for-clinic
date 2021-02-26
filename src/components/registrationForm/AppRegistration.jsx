@@ -12,9 +12,9 @@ const mapStateToProps = ({ switching, user: { isAuth } }) => {
 };
 
 const AppRegistration = ({ dispatch, switching, isAuth }) => {
-  useEffect(() => {
-    dispatch(auth);
-  }, []);
+  // useEffect(() => {
+  //   dispatch(auth());
+  // }, []);
 
   const handleClickCheckInForm = (event) => {
     event.preventDefault();

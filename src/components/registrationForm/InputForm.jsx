@@ -45,7 +45,6 @@ const InputForm = (props) => {
         const { email, password } = values;
         dispatch(sendingLoginData(email, password));
         handleSubmit();
-        // console.log();
       }}
       validateOnMount
     >

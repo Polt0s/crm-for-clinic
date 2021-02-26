@@ -6,6 +6,7 @@ import './registration.css';
 import InputElements from './InputElements.jsx';
 import sendingRegistrationData from '../../actions/sendingRegistration.js';
 import EmailСonfirmation from './ConfirmationOfRegistration.jsx';
+import UserAlreadyExists from './UserAlreadyExists.jsx';
 
 const RegistationForm = (props) => {
   const [isOpen, changeOpenConfirmation] = useState('filling');
@@ -15,8 +16,21 @@ const RegistationForm = (props) => {
     changeOpenConfirmation('submitted');
   };
 
-  const renderMenu = () => (
+  const handleBackToForm = (e) => {
+    e.preventDefault();
+    changeOpenConfirmation('filling');
+  };
+
+  const handleFailed = () => {
+    changeOpenConfirmation('failed');
+  };
+
+  const renderConfirmation = () => (
     <EmailСonfirmation />
+  );
+
+  const renderUserAlreadyExists = () => (
+    <UserAlreadyExists backToForm={handleBackToForm} />
   );
 
   const renderRegistarionForm = () => (
@@ -52,9 +66,16 @@ const RegistationForm = (props) => {
         }),
       })}
       onSubmit={(values) => {
-        sendingRegistrationData(values);
-        handleSubmit();
-        console.log(values);
+        sendingRegistrationData(values)
+          .then((response) => {
+            if (response === 'FAIL') {
+              handleFailed();
+            } else {
+              handleSubmit();
+            }
+          }).catch((err) => {
+            console.log(`Error ${err}`);
+          });
       }}
       validateOnMount
     >
@@ -77,7 +98,7 @@ const RegistationForm = (props) => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="specialty">Speciality</label>
+              <label htmlFor="specialty">Specialty</label>
               <Field name="specialty" as="select" className="form-control">
                 <option value=""></option>
                 <option value="DOCTOR">DOCTOR</option>
@@ -118,7 +139,9 @@ const RegistationForm = (props) => {
     case 'filling':
       return renderRegistarionForm();
     case 'submitted':
-      return renderMenu();
+      return renderConfirmation();
+    case 'failed':
+      return renderUserAlreadyExists();
     default:
       throw new Error(`'${isOpen}' - unknown state`);
   }

@@ -10,7 +10,7 @@ const sendingRegistrationData = async (values) => {
     confirmPassword,
   } = values;
   try {
-    const response = await axios.post('http://localhost:8080/auth/register-start', {
+    const response = await axios.post('http://localhost:8082/auth/register-start', {
       firstName,
       lastName,
       specialty,
@@ -18,9 +18,10 @@ const sendingRegistrationData = async (values) => {
       password,
       confirmPassword,
     });
-    console.log(response.data.message);
+    return response.data.registrationStatus;
   } catch (e) {
     console.log(e.response.data.message);
+    return null;
   }
 };
 

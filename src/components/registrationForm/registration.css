@@ -47,3 +47,16 @@
   text-align: center;
   background-color: rgb(247, 216, 158);
 }
+
+#userAlreadyExists {
+  display: inline-block;
+  width: 370px;
+  margin: 15% auto;
+  padding: 20px 20px;
+  text-align: left;
+  border: 3px solid #ae63e4;
+}
+#textUserAlreadyExists {
+  text-align: center;
+  background-color: rgb(247, 216, 158);
+}

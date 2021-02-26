@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import InputElements from './InputElements.jsx';
 import './registration.css';
 import Test from '../text.jsx';
@@ -8,6 +10,12 @@ import sendingCode from '../../actions/sendingCode.js';
 
 const EmailСonfirmation = () => {
   const [isConfirm, changeIsConfirm] = useState('filling');
+  const [showHidePassword, changeShowHidePassword] = useState(false);
+
+  const handleShow = (e) => {
+    e.preventDefault();
+    changeShowHidePassword(!showHidePassword);
+  };
 
   const handleSubmit = () => (
     changeIsConfirm('submitted')
@@ -41,7 +49,13 @@ const EmailСonfirmation = () => {
               <InputElements
                 label="Сonfirmation сode"
                 name="code"
-                type="password"
+                type={showHidePassword ? 'text' : 'password'}
+              />
+              <FormControlLabel
+                value="end"
+                control={<Checkbox color="primary" checked={showHidePassword} onClick={handleShow} />}
+                label="Check password"
+                labelPlacement="end"
               />
             </div>
             <button type="submit" className="btn btn-primary" id="confirm" disabled={!formik.isValid}>Confirm</button>
