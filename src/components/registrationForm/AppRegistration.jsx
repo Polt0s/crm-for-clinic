@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './app.css';
 import { connect } from 'react-redux';
 import { filling, openRegistrationForm, openInputForm } from '../../actions/index.js';
 import RegistationForm from './RegistrationForm.jsx';
 import InputForm from './InputForm.jsx';
-import auth from '../../actions/authentication.js';
+// import auth from '../../actions/authentication.js';
 
 const mapStateToProps = ({ switching, user: { isAuth } }) => {
   const props = { switching, isAuth };
