@@ -7,18 +7,16 @@ const sendingRegistrationData = async (values) => {
     specialty,
     email,
     password,
-    confirmPassword,
   } = values;
   try {
     const response = await axios.post('http://localhost:8082/auth/register-start', {
+      email,
       firstName,
       lastName,
-      specialty,
-      email,
       password,
-      confirmPassword,
+      specialty,
     });
-    return response.data.registrationStatus;
+    return { status: response.data.registrationStatus, message: response.data.message };
   } catch (e) {
     console.log(e.response.data.message);
     return null;

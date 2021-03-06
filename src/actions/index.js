@@ -19,10 +19,11 @@ export const openInputForm = () => ({
   },
 });
 
-export const addUser = (user) => ({
+export const addUser = (email, speciality) => ({
   type: 'ADD_USER',
   payload: {
-    user,
+    email,
+    speciality,
   },
 });
 

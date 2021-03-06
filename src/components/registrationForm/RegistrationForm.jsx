@@ -4,9 +4,13 @@ import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
 import './registration.css';
 import InputElements from './InputElements.jsx';
-import sendingRegistrationData from '../../actions/sendingRegistration.js';
+import sendingRegistrationData from '../../serverRequests/sendingRegistration.js';
 import EmailСonfirmation from './ConfirmationOfRegistration.jsx';
 import UserAlreadyExists from './UserAlreadyExists.jsx';
+
+let ERROR_MESSAGE;
+let EMAIL;
+let PASSWORD;
 
 const RegistationForm = (props) => {
   const [isOpen, changeOpenConfirmation] = useState('filling');
@@ -26,11 +30,11 @@ const RegistationForm = (props) => {
   };
 
   const renderConfirmation = () => (
-    <EmailСonfirmation />
+    <EmailСonfirmation email={EMAIL} password={PASSWORD} />
   );
 
   const renderUserAlreadyExists = () => (
-    <UserAlreadyExists backToForm={handleBackToForm} />
+    <UserAlreadyExists backToForm={handleBackToForm} text={ERROR_MESSAGE} />
   );
 
   const renderRegistarionForm = () => (
@@ -50,8 +54,6 @@ const RegistationForm = (props) => {
         lastName: yup.string()
           .max(20, 'Must be no more than 20 characters')
           .required('You did not enter your lastName'),
-        // specialty: yup.string()
-        //   .oneOf(['DOCTOR', 'NURSE']).required('You have not chosen a position'),
         email: yup.string().email('Invalid email format').required('You have not entered your email'),
         password: yup.string()
           .min(8, 'Password must be at least 8 characters')
@@ -66,9 +68,12 @@ const RegistationForm = (props) => {
         }),
       })}
       onSubmit={(values) => {
+        EMAIL = values.email;
+        PASSWORD = values.password;
         sendingRegistrationData(values)
           .then((response) => {
-            if (response === 'FAIL') {
+            if (response.status === 'FAIL') {
+              ERROR_MESSAGE = response.message;
               handleFailed();
             } else {
               handleSubmit();
@@ -82,18 +87,19 @@ const RegistationForm = (props) => {
       {(formik) => (
         <Form id="formCheckIn">
           <div className="container-fluid">
-
             <div className="form-group">
               <InputElements
-                label="LastName"
-                name="lastName"
+                placeholder="Your name"
+                label="FirstName"
+                name="firstName"
                 type="text"
               />
             </div>
             <div className="form-group">
               <InputElements
-                label="FirstName"
-                name="firstName"
+                placeholder="Your last name"
+                label="LastName"
+                name="lastName"
                 type="text"
               />
             </div>
@@ -107,6 +113,7 @@ const RegistationForm = (props) => {
             </div>
             <div className="form-group">
               <InputElements
+                placeholder="Email adress"
                 label="Email"
                 name="email"
                 type="email"
@@ -114,6 +121,7 @@ const RegistationForm = (props) => {
             </div>
             <div className="form-group">
               <InputElements
+                placeholder="******"
                 label="Password"
                 name="password"
                 type="password"
@@ -121,14 +129,14 @@ const RegistationForm = (props) => {
             </div>
             <div className="form-group">
               <InputElements
+                placeholder="******"
                 label="Confirm password"
                 name="confirmPassword"
                 type="password"
               />
             </div>
-            <button type="button" className="btn btn-primary" id="buttonBack" onClick={backToForm}>Back</button>
-            <button type="submit" className="btn btn-primary" id="buttonCheckIn" disabled={!formik.isValid}>Sign up</button>
-
+            {/* <button type="button" className="btn btn-primary" id="buttonBack" onClick={backToForm}>Back</button> */}
+            <button type="submit" className="btn btn-info btn-lg btn-block" disabled={!formik.isValid}>Sign up</button>
           </div>
         </Form>
       )}

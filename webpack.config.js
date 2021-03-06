@@ -27,8 +27,29 @@ module.exports = {
     new CleanWebpackPlugin(),
   ],
   devServer: {
-    open: true,
-    port: 4000,
+    // open: true,
+    // port: 4000,
+    // // proxy: {
+    // //   target: 'http://localhost:8082/',
+    // // },
+    // proxy: {
+    //   '/api': {
+    //     target: 'http://localhost:8082',
+    //     secure: false,
+    //     changeOrigin: true,
+    //     logLevel: 'debug',
+    //     pathRewrite: { '^/api': '' },
+    //   },
+    // },
+    port: 9090,
+    proxy: {
+      '/*': {
+        target: 'http://localhost:8082',
+        secure: false,
+        prependPath: false,
+      },
+    },
+    publicPath: 'http://localhost:9090/',
   },
   module: {
     rules: [

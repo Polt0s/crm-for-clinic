@@ -1,10 +1,11 @@
 #formCheckIn {
   display: inline-block;
   width: 370px;
-  margin: 0.2% auto;
+  margin: 2% auto;
   padding: 20px 20px;
   text-align: left;
-  border: 3px solid #ae63e4;
+  color: #464646;
+  border: 1px solid #2b2b2b;
 }
 
 #formInput {
@@ -13,7 +14,8 @@
   margin: 10% auto;
   padding: 20px 20px;
   text-align: left;
-  border: 3px solid #ae63e4;
+  color: #464646;
+  border: 1px solid #2b2b2b;
 }
 
 #formСonfirmation {
@@ -22,7 +24,38 @@
   margin: 13% auto;
   padding: 20px 20px;
   text-align: left;
-  border: 3px solid #ae63e4;
+  color: #464646;
+  border: 1px solid #2b2b2b;
+}
+
+#formRecovery {
+  display: inline-block;
+  width: 370px;
+  margin: 13% auto;
+  padding: 20px 20px;
+  text-align: left;
+  color: #464646;
+  border: 1px solid #2b2b2b;
+}
+
+#formRasswordRecoveryFinish {
+  display: inline-block;
+  width: 400px;
+  margin: 8% auto;
+  padding: 20px 20px;
+  text-align: left;
+  color: #464646;
+  border: 1px solid #2b2b2b;
+}
+
+#infoPasswordChanged {
+  display: inline-block;
+  width: 400px;
+  margin: 8% auto;
+  padding: 20px 20px;
+  text-align: left;
+  color: #464646;
+  border: 1px solid #2b2b2b;
 }
 
 #buttonBack {
@@ -31,17 +64,20 @@
   display: inline-block;
 }
 
-#buttonCheckIn {
+#recoveryStartText {
+  font-size: 15px;
+}
+/* #buttonCheckIn {
   border: none;
   margin-left: 10px;
   display: inline-block;
-}
+} */
 
-#buttonInput {
+/* #buttonInput {
   border: none;
   margin-left: 10px;
   display: inline-block;
-}
+} */
 
 #textConfirmation {
   text-align: center;
@@ -54,9 +90,27 @@
   margin: 15% auto;
   padding: 20px 20px;
   text-align: left;
-  border: 3px solid #ae63e4;
+  color: #464646;
+  border: 1px solid #2b2b2b;
 }
+
 #textUserAlreadyExists {
   text-align: center;
   background-color: rgb(247, 216, 158);
+}
+
+.Text_error {
+  color: red
+}
+
+.ErorrMessagePassword {
+  color: red;
+}
+
+.errorMessagePasswordRecovery {
+  color:  red;
+}
+
+.errorRecoveryFinish {
+  color: red
 }

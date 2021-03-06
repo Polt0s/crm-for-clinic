@@ -8,7 +8,7 @@ const userReducer = (state = initState, action) => {
     case 'ADD_USER':
       return {
         ...state,
-        currentUser: action.payload.user,
+        currentUser: { email: action.payload.email, speciality: action.payload.speciality },
         isAuth: true,
       };
     case 'LOGOUT':

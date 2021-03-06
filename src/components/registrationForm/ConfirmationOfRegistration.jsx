@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import InputElements from './InputElements.jsx';
 import './registration.css';
 import Test from '../text.jsx';
-import sendingCode from '../../actions/sendingCode.js';
+import sendingCode from '../../serverRequests/sendingCode.js';
+import sendingLoginData from '../../serverRequests/sendingLogin.js';
 
-const EmailСonfirmation = () => {
+const EmailСonfirmation = (props) => {
+  const { email, password } = props;
+  const dispatch = useDispatch();
   const [isConfirm, changeIsConfirm] = useState('filling');
-  const [showHidePassword, changeShowHidePassword] = useState(false);
-
-  const handleShow = (e) => {
-    e.preventDefault();
-    changeShowHidePassword(!showHidePassword);
-  };
+  const [isError, changeError] = useState('');
 
   const handleSubmit = () => (
     changeIsConfirm('submitted')
   );
+
   const renderMainMenu = () => (
     <Test />
   );
@@ -27,15 +25,24 @@ const EmailСonfirmation = () => {
   const renderFormConfirmation = () => (
     <Formik
       initialValues={{
-        code: '',
+        confirmationCode: '',
       }}
       validationSchema={yup.object().shape({
-        code: yup.string().min(6).max(6).required('the code must be digits'),
+        confirmationCode: yup.string().min(6).max(6).required('You did not enter the verification code'),
       })}
       onSubmit={(values) => {
-        sendingCode(values);
-        handleSubmit();
-        console.log(values);
+        console.log(document.cookie);
+        sendingCode(values)
+          .then((response) => {
+            // console.log(response)
+            if (response.status === 'SUCCESS') {
+              dispatch(sendingLoginData(email, password));
+              handleSubmit();
+            }
+            changeError(response.message);
+          }).catch((err) => {
+            console.log(`Error ${err}`);
+          });
       }}
       validateOnMount
     >
@@ -43,27 +50,24 @@ const EmailСonfirmation = () => {
         <Form id="formСonfirmation">
           <div className="container-fluid">
             <div id="textConfirmation">
-              <p>We sent you an email with a confirmation code</p>
+              <p>We sent you an email with a confirmation confirmation code</p>
             </div>
             <div className="form-group">
               <InputElements
+                placeholder="Enter confirmation code"
                 label="Сonfirmation сode"
-                name="code"
-                type={showHidePassword ? 'text' : 'password'}
+                name="confirmationCode"
+                type="text"
               />
-              <FormControlLabel
-                value="end"
-                control={<Checkbox color="primary" checked={showHidePassword} onClick={handleShow} />}
-                label="Check password"
-                labelPlacement="end"
-              />
+              <div className="Text_error">{isError}</div>
             </div>
-            <button type="submit" className="btn btn-primary" id="confirm" disabled={!formik.isValid}>Confirm</button>
+            <button type="submit" className="btn btn-info" id="confirm" disabled={!formik.isValid}>Send</button>
           </div>
         </Form>
       )}
     </Formik>
   );
+
   switch (isConfirm) {
     case 'filling':
       return renderFormConfirmation();

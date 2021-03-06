@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { NavLink, Link, Switch, Redirect, Route } from 'react-router-dom';
 import './app.css';
 import { connect } from 'react-redux';
 import { filling, openRegistrationForm, openInputForm } from '../../actions/index.js';
 import RegistationForm from './RegistrationForm.jsx';
 import InputForm from './InputForm.jsx';
-import auth from '../../actions/authentication.js';
+// import auth from '../../actions/authentication.js';
 
 const mapStateToProps = ({ switching, user: { isAuth } }) => {
   const props = { switching, isAuth };
@@ -15,6 +16,7 @@ const AppRegistration = ({ dispatch, switching, isAuth }) => {
   // useEffect(() => {
   //   dispatch(auth());
   // }, []);
+  // const history = useHistory();
 
   const handleClickCheckInForm = (event) => {
     event.preventDefault();
@@ -23,6 +25,7 @@ const AppRegistration = ({ dispatch, switching, isAuth }) => {
 
   const handleClickInputForm = (event) => {
     event.preventDefault();
+    // history.push('/login');
     dispatch(openInputForm());
   };
 
@@ -41,14 +44,11 @@ const AppRegistration = ({ dispatch, switching, isAuth }) => {
 
   const renderButton = () => (
     <div id="registration" className="container-fluid d-flex justify-content-center">
-      {
-        !isAuth
-        && <>
-          <button type="button" className="btn btn-info btn-lg" id="buttonInput" onClick={handleClickInputForm}>Sign in</button>
-          <button type="button" className="btn btn-info btn-lg" id="buttonCheckIn" onClick={handleClickCheckInForm}>Sign up</button>
-        </>
-      }
-    </div>
+      <NavLink to="/login" type="button" className="btn btn-info btn-lg" id="buttonInput">
+        Sign in</NavLink>
+      <button type="button" className="btn btn-info btn-lg" id="buttonCheckIn" onClick={handleClickCheckInForm}>
+        Sign up</button>
+    </div >
   );
 
   switch (switching) {
